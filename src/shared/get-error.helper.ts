@@ -1,10 +1,10 @@
-export const getError = (error: any, filed: string, messages: string[]) => (error?.response?.hasError ?
+export const getError = (error: any, field: string, messages: string[]) => (error?.response?.hasError ?
     error.response :
     {
         hasError: true,
         errors: [
             {
-                filed,
+                field,
                 messages
             }
         ],

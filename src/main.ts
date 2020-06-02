@@ -13,6 +13,7 @@ async function bootstrap() {
   
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
+  app.setGlobalPrefix('api')
   await app.listen(port);
 
   Logger.verbose(`Server running on http://${host}:${port}, Bootstrap`);
