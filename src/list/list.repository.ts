@@ -47,7 +47,7 @@ export class ListRepository extends Repository<ListEntity> {
         }
 
         query.leftJoinAndSelect('list.words', 'word');
-
+        
         return query.getMany();
     }
 
@@ -83,5 +83,15 @@ export class ListRepository extends Repository<ListEntity> {
         await list.save();
 
         return list;
+    }
+
+    async updateList(oldList: ListEntity, newList: CreateListDto, words: WordEntity[]): Promise<ListEntity> {
+        oldList.name = newList.name;
+        oldList.group = newList.group;
+        oldList.words = words;
+
+        oldList.save();
+
+        return oldList;
     }
 }

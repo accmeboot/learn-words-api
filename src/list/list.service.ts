@@ -88,4 +88,11 @@ export class ListService {
 
         return await this.listRepository.deleteWordFromListById(id, word);
     }
+
+    async updateList(list: CreateListDto, id: string, user: UserEntity): Promise<ListEntity> {
+        const oldList = await this.getListById(id, user);
+        const words = await this.wordRepository.findByIds(list.words);
+
+        return await this.listRepository.updateList(oldList, list, words);
+    }
 }

@@ -4,7 +4,18 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserEntity } from './../user/user.entity';
 import { CreateListDto } from './dto/create-list.dto';
 import { ListService } from './list.service';
-import { Controller, Post, Body, UseGuards, Get, Query, Delete, Param, Patch } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    Body,
+    UseGuards,
+    Get,
+    Query,
+    Delete,
+    Param,
+    Patch,
+    Put
+} from '@nestjs/common';
 import { GetUser } from 'src/user/decorators/get-user.decorator';
 
 @Controller('list')
@@ -29,6 +40,15 @@ export class ListController {
         @GetUser() user: UserEntity
     ): Promise<ListEntity[]> {
         return await this.listService.getLists(group, user);
+    }
+
+    @Put('/:id')
+    async updateList(
+        @Body() list: CreateListDto,
+        @Param('id') id: string,
+        @GetUser() user: UserEntity
+    ): Promise<ListEntity> {
+        return await this.listService.updateList(list, id, user);
     }
 
     @Patch('/:id')
